@@ -9,9 +9,12 @@ ENV DISABLE_ORGANIZATION=false
 ENV DEFAULT_LANGUAGE=fr_FR.UTF-8
 ENV PDF_STORAGE_ENCRYPTION=false
 
+# Update and install OS
 RUN apt update && \
+    apt-get upgrade -y && \
     apt install -y vim locales gettext-base librsvg2-bin pdftk imagemagick potrace ghostscript gpg && \
     docker-php-ext-install gettext && \
+    apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
 COPY . /usr/local/signaturepdf
